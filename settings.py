@@ -1,4 +1,4 @@
-from pathlib import Path
+# from pathlib import Path
 import psycopg2
 import subprocess
 
@@ -15,6 +15,17 @@ else:
     proc = subprocess.Popen('printenv DATABASE_URL', stdout=subprocess.PIPE, shell=True)
     db_info = proc.stdout.read().decode('utf-8').strip()
     DEBUG = False
+
+# pythonanywhere
+# db_uri = {
+#     'user': 'akanaohub',
+#     'password': 'mentaiko1',
+#     'host': 'akanaohub.mysql.pythonanywhere-services.com',
+#     'database': 'akanaohub$mokugekisha',
+#     'charset': 'utf8mb4',
+# }
+# db_info='mysql+pymysql://{user}:{password}@{host}/{database}?charset={charset}'.format(**db_uri)
+# DEBUG = False
 
 SQLALCHEMY_DATABASE_URI = db_info
 SQLALCHEMY_TRACK_MODIFICATIONS = True

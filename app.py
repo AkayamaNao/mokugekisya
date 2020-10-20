@@ -12,6 +12,8 @@ import random, string
 import ast
 import uuid
 import numpy as np
+import datetime
+# import pymysql
 
 import settings
 from models import *
@@ -378,6 +380,7 @@ def message_text(event):
 
     data = {'replyToken': event.reply_token, 'messages': reply_json}
     res = requests.post(reply_url, data=json.dumps(data), headers=headers)
+    s.close()
 
 
 @handler.add(PostbackEvent)
@@ -399,6 +402,7 @@ def postback(event):
         level = int(data_dic['level'])
         query = f"select id,name from users where room_id='{room_id}';"
         df = pd.read_sql(query, db_engine)
+        np.random.seed(int(datetime.datetime.now().timestamp()))
         df = df.sample(frac=1)
         df = df.reset_index(drop=True)
         num = len(df)
@@ -753,7 +757,8 @@ def postback(event):
 
     data = {'replyToken': event.reply_token, 'messages': reply_json}
     res = requests.post(reply_url, data=json.dumps(data), headers=headers)
+    s.close()
 
 
-if __name__ == '__main__':
-    app.run()
+# if __name__ == '__main__':
+#     app.run()
